@@ -9,19 +9,29 @@ import javax.swing.JOptionPane;
  */
 public class Pessoa {
 
-    private String nome;
-    private String dtNasc;
-    private short idade;
-    private String rg;
-    private String cpf;
-    private String cel;
+    protected String nome;
+    protected String dtNasc;
+    protected short idade;
+    protected String rg;
+    protected String cpf;
+    protected String fone;
 
-    public void cadastrarPessoa() {
-        String nome = JOptionPane.showInputDialog("Nome:");
-        String dtNasc = JOptionPane.showInputDialog("Data de Nascimento (dd/mm/aaaa):");
-        short idade = Short.parseShort(JOptionPane.showInputDialog("Idade:"));
-        String rg = JOptionPane.showInputDialog("RG:");
-        String cpf = JOptionPane.showInputDialog("CPF:");
+     Pessoa(String nome, String dtNasc, short idade, String rg, String cpf, String fone) {
+        this.nome = nome;
+        this.dtNasc = dtNasc;
+        this.idade = idade;
+        this.rg = rg;
+        this.cpf = cpf;
+        this.fone = fone;
     }
 
+    public String exibirPessoa(Pessoa p) {
+        String msg
+                = "Nome:" + p.nome + "\n"
+                + "Data Nascimento:" + p.dtNasc + "\n"
+                + "Idade:" + p.idade + "\n"
+                + "RG:" + p.rg
+                + "CPF:" + p.cpf;
+        return msg;
+    }
 }

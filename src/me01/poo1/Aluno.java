@@ -12,11 +12,30 @@ public class Aluno extends Pessoa {
     private int matricula;
     private String celular;
 
+    public Aluno(int matricula, String celular, Pessoa p) {
+        super(p.nome, p.dtNasc, p.idade, p.rg, p.cpf, p.fone);
+        this.matricula = matricula;
+        this.celular = celular;
+    }
+
+ 
+
     public void cadastrarAluno() {
         JOptionPane.showMessageDialog(null, "Informe os dados referente ao aluno");
-        super.cadastrarPessoa();
-         matricula = Integer.parseInt(JOptionPane.showInputDialog("Matricula:"));
-         celular = JOptionPane.showInputDialog("Celular:");
+        // super.cadastrarPessoa();
 
+    }
+
+    public String exibirAluno(Pessoa p[], String nome) {
+        String msg = null;
+        for (Pessoa aluno : p) {
+            if (aluno instanceof Aluno) {
+                if (aluno.nome.equals(nome)) {
+                    msg = "Matricula: " + ((Aluno) aluno).matricula + "\n";
+                    msg += super.exibirPessoa(aluno);
+                }
+            }
+        }
+        return msg;
     }
 }
