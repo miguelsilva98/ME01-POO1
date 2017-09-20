@@ -3,7 +3,7 @@ package me01.poo1;
 import javax.swing.JOptionPane;
 
 /**
- * @aluno Miguel Silva
+ * @aluno Miguel Silva ama thais
  * @curso Ciência da Computação
  * @matricula 1271106300
  */
