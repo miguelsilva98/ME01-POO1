@@ -9,40 +9,52 @@ import javax.swing.JOptionPane;
  * @curso Ciência da Computação
  * @matricula 1271106300
  */
-public class Main {
+public class Escola {
 
     private static Pessoa cadastrarPessoa() {
+        JOptionPane.showMessageDialog(null, "Dados Pessoais");
         String nome = JOptionPane.showInputDialog("Nome:");
         String dtNasc = JOptionPane.showInputDialog("Data de Nascimento (dd/mm/aaaa):");
         short idade = Short.parseShort(JOptionPane.showInputDialog("Idade:"));
         String rg = JOptionPane.showInputDialog("RG:");
         String cpf = JOptionPane.showInputDialog("CPF:");
         String fone = JOptionPane.showInputDialog("Tel:");
-        return new Pessoa(nome, dtNasc, idade, rg, cpf, fone);
+        JOptionPane.showMessageDialog(null, "Dados Referente a Endereço");
+        String logradouro = JOptionPane.showInputDialog("Logradouro:");
+        int numero = Integer.parseInt(JOptionPane.showInputDialog("Numero:"));
+        String complemento = JOptionPane.showInputDialog("Complemento:");
+        String cep = JOptionPane.showInputDialog("CEP:");
+        String bairro = JOptionPane.showInputDialog("Bairro:");
+        String cidade = JOptionPane.showInputDialog("Cidade");
+        String uf = JOptionPane.showInputDialog("UF");
+        return new Pessoa(nome, dtNasc, idade, rg, cpf, fone, new Endereco(logradouro, numero, complemento, bairro, cidade, uf, cep));
     }
 
     public static String verAluno(List<Aluno> listaAlunos, String nome) {
-        String msg = null;
+        String msg = "";
         for (Aluno aluno : listaAlunos) {
             if (aluno.nome.equals(nome) || nome == null) {
-                msg = "Matricula: " + aluno.getMatricula() + "\n";
+                msg += "----Dados do Aluno----\n";
+                msg += "Matricula: " + aluno.getMatricula() + "\n";
+                msg += "Celular: " + aluno.getCelular() + "\n\n";
                 msg += aluno.exibirPessoa(aluno);
-                msg += "Celular: " + aluno.getCelular() + "\n";
             }
         }
         return msg;
     }
 
     public static String verProf(List<Professor> listaProf, String nome) {
-        String msg = null;
+        String msg = "";
         for (Professor prof : listaProf) {
             if (prof.nome.equals(nome) || nome == null) {
-                msg = prof.exibirPessoa(prof);
+                msg += "----Dados do Professor----\n";
                 msg += "Lattes:" + prof.getLattes() + "\n";
                 msg += "Email:" + prof.getEmail() + "\n";
                 msg += "Especialidade:" + prof.getEspecialidade() + "\n";
                 msg += "Formação:" + prof.getFormacao() + "\n";
-                msg += "Salario:" + prof.getSalario() + "\n";
+                msg += "Salario:" + prof.getSalario() + "\n\n";
+                msg += prof.exibirPessoa(prof);
+
             }
         }
         return msg;
@@ -97,6 +109,7 @@ public class Main {
 
                         switch (opAluno) {
                             case 1: //Cadastrar Aluno
+                                JOptionPane.showMessageDialog(null, "Dados do Aluno");
                                 int matricula = Integer.parseInt(JOptionPane.showInputDialog("Matricula:"));
                                 String celular = JOptionPane.showInputDialog("Celular:");
                                 Aluno aluno = new Aluno(matricula, celular, cadastrarPessoa());
@@ -149,17 +162,18 @@ public class Main {
 
                         switch (opProf) {
                             case 1: //Cadastrar Professor
+                                JOptionPane.showMessageDialog(null, "Dados do Professor");
                                 String lattes = JOptionPane.showInputDialog("Link CV:");
                                 String email = JOptionPane.showInputDialog("Celular:");
                                 String especialidade = JOptionPane.showInputDialog("Especialidade:");
                                 String formacao = JOptionPane.showInputDialog("Formação:");
-                                String salario = JOptionPane.showInputDialog("Salario:");
+                                int salario = Integer.parseInt(JOptionPane.showInputDialog("Tipo Salarial \n1 - 3200; \n2 - 5000; \n3 - 7000:"));
                                 Professor prof = new Professor(lattes, email, especialidade, formacao, salario, cadastrarPessoa());
                                 listaProf.add(prof);
                                 break;
                             case 2: //Consultar Professor    
                                 if (!listaProf.isEmpty()) {
-                                    exibir = verProf(listaProf,JOptionPane.showInputDialog("Informe o nome do Professor"));
+                                    exibir = verProf(listaProf, JOptionPane.showInputDialog("Informe o nome do Professor"));
                                     if (exibir == null) {
                                         JOptionPane.showMessageDialog(null, "Nenhum Professor encontrado");
                                     } else {
@@ -174,7 +188,7 @@ public class Main {
                                 if (!listaAlunos.isEmpty()) {
                                     exibir = verAluno(listaAlunos, null);
                                     if (exibir == null) {
-                                        JOptionPane.showMessageDialog(null, "Nenhum aluno encontrado");
+                                        JOptionPane.showMessageDialog(null, "Nenhum Professor encontrado");
                                     } else {
                                         JOptionPane.showMessageDialog(null, exibir);
                                         exibir = null;

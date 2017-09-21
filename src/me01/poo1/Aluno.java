@@ -13,7 +13,7 @@ public class Aluno extends Pessoa {
     private final String celular;
 
     public Aluno(int matricula, String celular, Pessoa p) {
-        super(p.nome, p.dtNasc, p.idade, p.rg, p.cpf, p.fone);
+        super(p.nome, p.dtNasc, p.idade, p.rg, p.cpf, p.fone,p.endereco);
         this.matricula = matricula;
         this.celular = celular;
     }

@@ -15,24 +15,35 @@ public class Pessoa {
     protected String rg;
     protected String cpf;
     protected String fone;
+    protected Endereco endereco;
 
-     Pessoa(String nome, String dtNasc, short idade, String rg, String cpf, String fone) {
+    Pessoa(String nome, String dtNasc, short idade, String rg, String cpf, String fone, Endereco endereco) {
         this.nome = nome;
         this.dtNasc = dtNasc;
         this.idade = idade;
         this.rg = rg;
         this.cpf = cpf;
         this.fone = fone;
+        this.endereco = endereco;
     }
 
     public String exibirPessoa(Pessoa p) {
         String msg
-                = "Nome:" + p.nome + "\n"
+                = "----Dados Pessoais----\n"
+                + "Nome:" + p.nome + "\n"
                 + "Data Nascimento:" + p.dtNasc + "\n"
                 + "Idade:" + p.idade + "\n"
-                + "RG:" + p.rg+ "\n"
-                + "CPF:" + p.cpf+"\n"
-                + "Telefone:" + p.fone+ "\n";
+                + "RG:" + p.rg + "\n"
+                + "CPF:" + p.cpf + "\n"
+                + "Telefone:" + p.fone + "\n\n"
+                + "------Endereco------\n"
+                + "\nLogradouro: " + endereco.getLogradouro() + "\n"
+                + "\nNumero: " + endereco.getNumero() + "\n"
+                + "\nComplemento: " + endereco.getComplemento() + "\n"
+                + "\nCEP: " + endereco.getCep() + "\n"
+                + "\nBairro: " + endereco.getBairro() + "\n"
+                + "\nCidade: " + endereco.getCidade() + "\n"
+                + "\nEstado: " + endereco.getUf() + "\n\n";
         return msg;
     }
 
@@ -59,6 +70,5 @@ public class Pessoa {
     public String getFone() {
         return fone;
     }
-    
-    
+
 }
