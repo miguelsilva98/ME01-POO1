@@ -30,8 +30,35 @@ public class Pessoa {
                 = "Nome:" + p.nome + "\n"
                 + "Data Nascimento:" + p.dtNasc + "\n"
                 + "Idade:" + p.idade + "\n"
-                + "RG:" + p.rg
-                + "CPF:" + p.cpf;
+                + "RG:" + p.rg+ "\n"
+                + "CPF:" + p.cpf+"\n"
+                + "Telefone:" + p.fone+ "\n";
         return msg;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getDtNasc() {
+        return dtNasc;
+    }
+
+    public short getIdade() {
+        return idade;
+    }
+
+    public String getRg() {
+        return rg;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getFone() {
+        return fone;
+    }
+    
+    
 }
