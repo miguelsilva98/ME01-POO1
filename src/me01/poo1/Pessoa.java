@@ -37,13 +37,13 @@ public class Pessoa {
                 + "CPF:" + p.cpf + "\n"
                 + "Telefone:" + p.fone + "\n\n"
                 + "------Endereco------\n"
-                + "\nLogradouro: " + endereco.getLogradouro() + "\n"
-                + "\nNumero: " + endereco.getNumero() + "\n"
-                + "\nComplemento: " + endereco.getComplemento() + "\n"
-                + "\nCEP: " + endereco.getCep() + "\n"
-                + "\nBairro: " + endereco.getBairro() + "\n"
-                + "\nCidade: " + endereco.getCidade() + "\n"
-                + "\nEstado: " + endereco.getUf() + "\n\n";
+                + "Logradouro: " + endereco.getLogradouro() + "\n"
+                + "Numero: " + endereco.getNumero() + "\n"
+                + "Complemento: " + endereco.getComplemento() + "\n"
+                + "CEP: " + endereco.getCep() + "\n"
+                + "Bairro: " + endereco.getBairro() + "\n"
+                + "Cidade: " + endereco.getCidade() + "\n"
+                + "Estado: " + endereco.getUf() + "\n\n";
         return msg;
     }
 

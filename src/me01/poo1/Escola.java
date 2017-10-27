@@ -33,7 +33,7 @@ public class Escola {
     public static String verAluno(List<Aluno> listaAlunos, String nome) {
         String msg = "";
         for (Aluno aluno : listaAlunos) {
-            if (aluno.nome.equals(nome) || nome == null) {
+            if (aluno.getNome().equals(nome) || nome == null) {
                 msg += "----Dados do Aluno----\n";
                 msg += "Matricula: " + aluno.getMatricula() + "\n";
                 msg += "Celular: " + aluno.getCelular() + "\n\n";
@@ -43,16 +43,45 @@ public class Escola {
         return msg;
     }
 
+    public static String verCurso(List<Curso> listaCurso, String nome) {
+        String msg = "";
+        for (Curso curso : listaCurso) {
+            if (curso.getNome().equals(nome)) {
+                msg += "----Dados do Curso----\n";
+                msg += "Nome:" + curso.getNome() + "\n";
+                msg += "Carga Horaria:" + curso.getCargaHoraria() + "\n";
+                msg += "Valor:" + curso.getValor() + "\n";
+                msg += "Descricao:" + curso.getDescricao() + "\n\n";
+
+                msg += "----Financeiro----\n";
+                msg += "Valor do curso:" + curso.getValor() + "\n";
+                msg += "Custo: " + curso.getCustos() + "\n";
+                msg += "Valor Arrecadado:" + curso.getArrecadado() + "\n";
+                msg += "Mensalidade: " + curso.getCustos() / curso.getNumAlunos() + "\n";
+                msg += "Valor total do curso:" + curso.getCustos() + "\n\n";
+
+                msg += "----Informações extra----\n";
+                msg += "Minimo de Alunos:" + (curso.getCustos() / curso.getValor()) + "\n";
+                msg += "Nº atual de Alunos:" + curso.getNumAlunos() + "\n";
+                msg += "Nº atual de Professores:" + curso.getNumProf() + "\n";
+
+            }
+        }
+        return msg;
+    }
+
     public static String verProf(List<Professor> listaProf, String nome) {
         String msg = "";
         for (Professor prof : listaProf) {
-            if (prof.nome.equals(nome) || nome == null) {
+            if (prof.getNome().equals(nome) || nome == null) {
                 msg += "----Dados do Professor----\n";
                 msg += "Lattes:" + prof.getLattes() + "\n";
                 msg += "Email:" + prof.getEmail() + "\n";
                 msg += "Especialidade:" + prof.getEspecialidade() + "\n";
                 msg += "Formação:" + prof.getFormacao() + "\n";
-                msg += "Salario:" + prof.getSalario() + "\n\n";
+
+                msg += "----Resumo Salarial----\n";
+                msg += prof.getResumoSalarial() + "\n\n";
                 msg += prof.exibirPessoa(prof);
 
             }
@@ -60,11 +89,32 @@ public class Escola {
         return msg;
     }
 
+    
+     public static String verRecp(List<Recepcionista> listaRecp, String nome) {
+        String msg = "";
+        for (Recepcionista recp : listaRecp) {
+            if (recp.getNome().equals(nome) || nome == null) {
+                msg += "----Dados do Professor----\n";
+                msg += "Lattes:" + recp.getLattes() + "\n";
+                msg += "Email:" + recp.getEmail() + "\n";
+                msg += "Especialidade:" + recp.getEspecialidade() + "\n";
+                msg += "Formação:" + recp.getFormacao() + "\n";
+
+                msg += "----Resumo Salarial----\n";
+                msg += recp.getResumoSalarial() + "\n\n";
+                msg += recp.exibirPessoa(recp);
+
+            }
+        }
+        return msg;
+    }
     public static void main(String[] args) {
         int op;
         String exibir;
         List<Aluno> listaAlunos = new ArrayList<>();
         List<Professor> listaProf = new ArrayList<>();
+        List<Recepcionista> listaRecp = new ArrayList<>();
+        List<Curso> listaCurso = new ArrayList<>();
 
         do {
             op = Integer.parseInt(JOptionPane.showInputDialog(""
@@ -72,6 +122,7 @@ public class Escola {
                     + "\n1 - Menu de Cursos"
                     + "\n2 - Menu de Alunos"
                     + "\n3 - Menu de Professores"
+                    + "\n4 - Menu Recepcionista, "
                     + "\n5 - Sair"));
 
             switch (op) {
@@ -82,20 +133,78 @@ public class Escola {
                                 + "XYZ Tecnologia - MENU DE CURSOS"
                                 + "\n1 - Cadastrar Curso"
                                 + "\n2 - Consultar Curso"
-                                + "\n3 - Consultar Todos os Cursos"
-                                + "\n4 - Voltar"));
+                                + "\n3 - Inserir Aluno ao Curso"
+                                + "\n4 - Inserir Professor ao Curso"
+                                + "\n5 - Voltar"));
 
                         switch (opCurso) {
-                            case 1: //Cadastrar Curso                               
+                            case 1: //Cadastrar Curso      
+                                String nome = JOptionPane.showInputDialog("Nome:");
+                                int cargaHoraria = Integer.parseInt(JOptionPane.showInputDialog("Carga:"));
+                                double valor = Double.parseDouble(JOptionPane.showInputDialog("Valor:"));
+                                String descricao = JOptionPane.showInputDialog("Descrição:");
+                                listaCurso.add(new Curso(nome, cargaHoraria, valor, descricao));
                                 break;
                             case 2://Consultar Curso
+                                if (!listaCurso.isEmpty()) {
+                                    exibir = verCurso(listaCurso, JOptionPane.showInputDialog("Informe o nome do curso"));
+                                    if (exibir == null) {
+                                        JOptionPane.showMessageDialog(null, "Nenhum curso encontrado");
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, exibir);
+                                        exibir = null;
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Não possui curso cadastrados");
+                                }
+
                                 break;
-                            case 3: //Consultar Todos os Cursos                              
+                            case 3: // Inserir Aluno ao Curso
+                                if (!listaAlunos.isEmpty()) {
+                                    String nomeAluno = JOptionPane.showInputDialog("Informe o nome do aluno ou aperte enter para cadastrar todos os alunos");
+                                    for (Aluno aluno : listaAlunos) {
+                                        if (aluno.getNome().equals(nomeAluno) || nomeAluno == null) {
+                                            JOptionPane.showMessageDialog(null, "Aluno Encontrado: " + aluno.getNome());
+                                            String nomeCurso = JOptionPane.showInputDialog("Nome do Curso:");
+                                            for (Curso curso : listaCurso) {
+                                                if (curso.getNome().equals(nomeCurso)) {
+                                                    curso.setAluno(aluno);
+                                                }
+                                            }
+
+                                        }
+                                    }
+
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Não possui alunos cadastrados");
+                                }
                                 break;
-                            default:
+                            case 4:// Inserir Professor ao Curso
+                                if (!listaAlunos.isEmpty()) {
+                                    String nomeAluno = JOptionPane.showInputDialog("Informe o nome do Professor ou aperte enter para cadastrar todos os alunos");
+                                    for (Professor prof : listaProf) {
+                                        if (prof.getNome().equals(nomeAluno) || nomeAluno == null) {
+                                            JOptionPane.showMessageDialog(null, "Professor Encontrado: " + prof.getNome());
+                                            String nomeCurso = JOptionPane.showInputDialog("Nome do Curso:");
+                                            for (Curso curso : listaCurso) {
+                                                if (curso.getNome().equals(nomeCurso)) {
+                                                    curso.setProfessor(prof);
+                                                }
+                                            }
+
+                                        }
+                                    }
+
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Não possui professores cadastrados");
+                                }
+                                break;
+                            case 5: //sair
+                                break;
+
                         }
 
-                    } while (opCurso != 4);
+                    } while (opCurso != 5);
                     break;
                 case 2://Menu Aluno
                     int opAluno;
@@ -143,8 +252,7 @@ public class Escola {
                                 break;
                             case 4: //voltar
                                 break;
-                            default:
-                                JOptionPane.showMessageDialog(null, "Informe uma opção válida");
+
                         }
 
                     } while (opAluno != 4);
@@ -184,9 +292,9 @@ public class Escola {
                                     JOptionPane.showMessageDialog(null, "Não possui Professor cadastrados");
                                 }
                                 break;
-                            case 3: //Consultar todos os Alunos
-                                if (!listaAlunos.isEmpty()) {
-                                    exibir = verAluno(listaAlunos, null);
+                            case 3: //Consultar todos os Professores
+                                if (!listaProf.isEmpty()) {
+                                    exibir = verProf(listaProf, null);
                                     if (exibir == null) {
                                         JOptionPane.showMessageDialog(null, "Nenhum Professor encontrado");
                                     } else {
@@ -199,19 +307,69 @@ public class Escola {
                                 break;
                             case 4: //voltar
                                 break;
-                            default:
-                                JOptionPane.showMessageDialog(null, "Informe uma opção válida");
+
                         }
 
                     } while (opProf != 4);
 
                     break;
 
-                case 4:
+                case 4://Menu Recp
+                    int opRecp;
+                    do {
+                        opProf = Integer.parseInt(JOptionPane.showInputDialog(""
+                                + "XYZ Tecnologia - MENU DE RECEPCIONISTA"
+                                + "\n1 - Cadastrar Recepcionista"
+                                + "\n2 - Consultar Recepcionista"
+                                + "\n3 - Consultar Todos os Recepcionista"
+                                + "\n4 - Voltar"));
+
+                        switch (opProf) {
+                            case 1: //Cadastrar recp
+                                JOptionPane.showMessageDialog(null, "Dados do Recepcionista");
+                                String lattes = JOptionPane.showInputDialog("Link CV:");
+                                String email = JOptionPane.showInputDialog("Celular:");
+                                String especialidade = JOptionPane.showInputDialog("Especialidade:");
+                                String formacao = JOptionPane.showInputDialog("Formação:");
+                                Recepcionista rec = new Recepcionista(lattes, email, especialidade, formacao, cadastrarPessoa());
+                                listaRecp.add(rec);
+                                break;
+                            case 2: //Consultar Professor    
+                                if (!listaRecp.isEmpty()) {
+                                    exibir = verRecp(listaRecp, JOptionPane.showInputDialog("Informe o nome da Recepcionista"));
+                                    if (exibir == null) {
+                                        JOptionPane.showMessageDialog(null, "Nenhum Recepcionista encontrado");
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, exibir);
+                                        exibir = null;
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Não possui Recepcionista cadastrados");
+                                }
+                                break;
+                            case 3: //Consultar todos os Professores
+                                if (!listaRecp.isEmpty()) {
+                                    exibir = verRecp(listaRecp, null);
+                                    if (exibir == null) {
+                                        JOptionPane.showMessageDialog(null, "Nenhum Recepcionista encontrado");
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, exibir);
+                                        exibir = null;
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Não possui Recepcionista cadastrados");
+                                }
+                                break;
+                            case 4: //voltar
+                                break;
+
+                        }
+
+                    } while (opProf != 4);
+
                     break;
                 case 5:
                     break;
-                default:
             }
 
         } while (op != 5);

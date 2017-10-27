@@ -5,22 +5,20 @@ package me01.poo1;
  * @curso Ciência da Computação
  * @matricula 1271106300
  */
-public class Professor extends Pessoa {
+public class Recepcionista extends Pessoa {
 
     private final String lattes;
     private final String email;
     private final String especialidade;
     private final String formacao;
-    private final int tipoSalario;
     private Double salario;
 
-    public Professor(String lattes, String email, String especialidade, String formacao, int tipoSalario, Pessoa p) {
+    public Recepcionista(String lattes, String email, String especialidade, String formacao, Pessoa p) {
         super(p.nome, p.dtNasc, p.idade, p.rg, p.cpf, p.fone, p.endereco);
         this.lattes = lattes;
         this.email = email;
         this.especialidade = especialidade;
         this.formacao = formacao;
-        this.tipoSalario = tipoSalario;
     }
 
     public String getLattes() {
@@ -45,18 +43,8 @@ public class Professor extends Pessoa {
     }
 
     public String getResumoSalarial() {
-        double salBruto = 0, salLiquido, inss = 0, noInss = 0, impRenda = 0;
-        switch (tipoSalario) {
-            case 1:
-                salBruto = 3200;
-                break;
-            case 2:
-                salBruto = 5000;
-                break;
-            case 3:
-                salBruto = 7000;
+        double salBruto = 1300, salLiquido, inss = 0, noInss = 0, impRenda = 0;
 
-        }
         String msg = "Salario Bruto: " + salBruto + "\n";
         if (salBruto <= 1556.94) {
             inss = salBruto / 100 * 8;
